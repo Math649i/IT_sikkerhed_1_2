@@ -17,5 +17,85 @@ Test af de nye unit tests
 <img width="1285" height="756" alt="image" src="https://github.com/user-attachments/assets/9881c1c4-3f47-41fa-9a51-0d16092b9ceb" />
 
 
+OPGAVER 05-02-2025
+
+Grænseværditest
+Jeg har valgt et klassisk adgangskode kontrol-system for at lave opgaverne
+
+For en adgangskode hvor kravet er 8 tegn, så kan man opdele dem således:
+
+
+Gyldige adgangskoder: Alle koder mellem 8 tegn og over burde accepteres
+
+For korte adgangskoder: Alle koder med 0-7 tegn systemet bør afvise dem alle
+
+Her er mit kode eksempel: 
+<img width="408" height="368" alt="image" src="https://github.com/user-attachments/assets/ff36d37f-fe78-4712-9dad-5c61bc3da2bb" />
+
+Her er resultat fra test
+<img width="1246" height="89" alt="image" src="https://github.com/user-attachments/assets/3a9c8a62-862d-48f6-9fac-6fc96f40aace" />
+
+CRUD OPGAVE
+
+ (Create): Kan man oprette en ny bruger med et password korrekt i systemet? 
+
+ (Read): Kan systemet hente og verificere brugerens data, når de forsøger at logge ind? 
+
+ (Update): Kan en eksisterende bruger ændre sit password uden fejl? 
+
+ (Delete): Kan en brugerprofil slettes sikkert og fuldstændigt fra databasen? 
+
+ (List): Kan en administrator trække en form for oversigt/liste over alle registrerede brugere?
+
+
+CYCLE PROCESS TEST OPGAVE
+
+Cycle Process Test fokuserer på at teste om systemet kan håndtere den samme handling mange gange over længere tid uden at fejle.
+
+For loginkontrol kan jeg eksempelvis teste dette:
+
+Gentagelse: Kan en bruger logge ind, udføre en handling og logge ud igen 100+ gange i træk uden at systemet bliver langsomt eller går ned
+
+Ressourcer: Sikrer man at systemet rydder op i de ældre sessioner og data hver gang, så hukommelsen ikke bliver fyldt op. Der kan evt komme memory leaks
+
+Stabilitet: Bliver log-filer fyldt op, eller stopper systemet med at validere login korrekt efter mange forsøg?.
+
+
+TEST PYRAMIDEN OPGAVE
+
+ Bottom Up med fokus på hastigheden ved testing
+ 
+Denne model fokuserer på at have flest unit tests i bunden, fordi de er hurtigere at køre
+
+I toppen har man få End-to-end tests, da de tager meget lang tid at udføre. og kan ende med at tage xxxxxx timer
+
+For mit loginkontrol betyder det, at jeg ville teste selve koden bag login mange gange, men kun tester hele skærmbilledet få gange.
+
+ Top Down (Fokus på brugeren)
+Her kigger man først på brugerrejser for at få det bedste overblik over, om login virker for brugeren
+
+Ulempen er, at man "ikke kan se skoven for bare træer". 
+
+Det betyder at man kan se, at login fejler, men det er svært at gennemskue præcis hvor i koden fejlen ligger.
+
+OPGAVE DECISION TABLE TEST
+
+Eksempel for et loginsystem
+
+
+(Jeg kunne ikke få MARKDOWN Tabel til at virke...)
+
+(REGEL) (GYLDIGT-LOGIN) (MFA-KORREKT) (RESULTAT)
+R1        NEJ              NEJ             Adgang bliver nægtet og vi logger det
+R2        JA               NEJ            Adgang vil blive nægtet (eller måske bed om MFA, afhænger af hvordan systemet er bygget, kan også være man får en påmindelse om at sætte det op eller noget i den dur)
+R3        JA               JA             Adgang givet - logget ind
+
+
+
+
+Data dreven unit-test med PyTest
+
+
+
 
 
