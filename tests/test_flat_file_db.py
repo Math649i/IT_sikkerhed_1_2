@@ -1,6 +1,7 @@
 import unittest
 import os
 import sys
+import json
 
 # Tilføj src til stien, så vi kan importere FlatFileDB
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
@@ -10,6 +11,7 @@ from flat_file_db import FlatFileDB
 class TestFlatFileDB(unittest.TestCase):
     def setUp(self):
         self.test_filename = 'test_db.json'
+        self.key_file = 'secret.key'
         self.db = FlatFileDB(self.test_filename)
         self.sample_user = {
             'person_id': '123',
@@ -24,6 +26,9 @@ class TestFlatFileDB(unittest.TestCase):
     def tearDown(self):
         if os.path.exists(self.test_filename):
             os.remove(self.test_filename)
+        # We generally might want to keep the key for other tests, but for unit tests we clean up
+        if os.path.exists(self.key_file):
+            os.remove(self.key_file)
 
     def test_add_user(self):
         # Risiko: Hvis oprettelse af bruger fejler uden feedback, kan det føre til datatab eller brugerfrustration.
@@ -33,9 +38,46 @@ class TestFlatFileDB(unittest.TestCase):
         # When: Brugeren tilføjes til databasen
         self.db.add_user(user_data)
         
-        # Then: Brugeren skal kunne hentes og matche inputdata
+        # Then: Brugeren skal kunne hentes og matche inputdata (med undtagelse af password som er hashed)
         retrieved_user = self.db.get_user('123')
-        self.assertEqual(retrieved_user, user_data)
+        
+        # Check PII fields match (decryption works)
+        self.assertEqual(retrieved_user['first_name'], user_data['first_name'])
+        self.assertEqual(retrieved_user['last_name'], user_data['last_name'])
+        self.assertEqual(retrieved_user['address'], user_data['address'])
+        
+        # Check password is NOT plain text
+        self.assertNotEqual(retrieved_user['password'], user_data['password'])
+
+    def test_encryption_at_rest(self):
+        # Risiko: Hvis data gemmes i klartekst, overholder vi ikke GDPR.
+        # Given: En bruger er tilføjet
+        self.db.add_user(self.sample_user)
+        
+        # When: Vi læser den rå JSON fil (uden om klassen)
+        with open(self.test_filename, 'r') as f:
+            raw_data = json.load(f)
+            
+        stored_user = raw_data[0]
+        
+        # Then: PII felter skal være krypterede (ikke ligne originalen)
+        self.assertNotEqual(stored_user['first_name'], 'John')
+        self.assertNotEqual(stored_user['address'], 'Main St')
+        
+        # Tjek at det ligner Fernet tokens (lang streng)
+        self.assertTrue(len(stored_user['first_name']) > 50)
+
+    def test_password_hashing(self):
+        # Risiko: Passwords i klartekst er en kæmpe sikkerhedsrisiko.
+        # Given: En bruger tilføjes
+        self.db.add_user(self.sample_user)
+        
+        # When: Vi henter brugeren
+        retrieved_user = self.db.get_user('123')
+        
+        # Then: Passwordet skal være hashed (SHA-256 er 64 tegn hex)
+        self.assertEqual(len(retrieved_user['password']), 64)
+        self.assertNotEqual(retrieved_user['password'], 'secret_password')
 
     def test_add_duplicate_user(self):
          # Risiko: Dublerede ID'er kan føre til datakorruption og forkert brugeridentifikation.
@@ -64,12 +106,16 @@ class TestFlatFileDB(unittest.TestCase):
         updates = {'first_name': 'Jane', 'enabled': False}
         
         # When: Brugerens information opdateres
-        self.db.update_user('123', updates)
+        # Note: update_user returns the decrypted view now
+        updated_user = self.db.update_user('123', updates)
         
         # Then: Brugerens data skal afspejle ændringerne
-        updated_user = self.db.get_user('123')
         self.assertEqual(updated_user['first_name'], 'Jane')
         self.assertFalse(updated_user['enabled'])
+        
+        # Verify persistence (fetch again)
+        fetched_user = self.db.get_user('123')
+        self.assertEqual(fetched_user['first_name'], 'Jane')
         
     def test_delete_user(self):
         # Risiko: Hvis sletning fejler, kan vi beholde data længere end GDPR tillader eller holde deaktiverede brugere aktive.
