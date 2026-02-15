@@ -83,6 +83,31 @@ OK
 *   `tests/test_flat_file_db.py`: Test-filen med alle unit tests.
 *   `README.md`: Denne fil.
 
+## Kryptering og Hashing (Ny Opgave)
+
+For at overholde GDPR og sikre brugernes data, er der implementeret følgende sikkerhedsforanstaltninger:
+
+### Valg af Algoritmer
+
+*   **Hashing:** Jeg har valgt **SHA-256** (med salt) til passwords.
+    *   *Hvorfor:* SHA-256 er en sikker industristandard. Alternativer som MD5 er usikre.
+*   **Kryptering:** Jeg har valgt **Fernet (Symmetrisk AES-128)** til personfølsomme data (PII).
+    *   *Hvorfor:* Det sikrer fortrolighed, og nøglen opbevares separat (`secret.key`).
+
+### Databehandling og Sikkerhed
+
+1.  **Hvornår skal data krypteres?**
+    *   Data (Navn, Adresse, Email, Tlf) krypteres **øjeblikkeligt** ved oprettelse (`add_user`) eller opdatering. Data ligger *altid* krypteret i `flat_file_db.json`.
+    *   *Hvorfor:* For at beskytte data "at rest" (når det er gemt), så en lækket fil ikke afslører persondata.
+
+2.  **Hvornår skal data dekrypteres?**
+    *   Data dekrypteres **kun**, når systemet specifikt anmoder om en bruger (`get_user`).
+    *   *Hvorfor:* For at applikationen kan arbejde med dataene (f.eks. vise profil).
+
+3.  **Hvornår skal de fjernes fra hukommelsen?**
+    *   De dekrypterede data findes kun midlertidigt i retur-variablen fra `get_user`. Selve databasen i hukommelsen (`self.users`) beholder dataene **krypteret**. Python rydder automatisk de dekrypterede data op, når de ikke bruges mere.
+    *   *Hvorfor:* For at minimere risikoen ved Memory Dumps (hvis en hacker læser RAM).
+
 ---
 ---
 
