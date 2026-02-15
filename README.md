@@ -1,4 +1,4 @@
-# Opgave: Flat File DB system
+# Opgave: Flat File DB system, kyprtering og hashing
 
  testresultat  med kryptering og hashing
 
