@@ -32,13 +32,6 @@ At bruge en "flat file database" (som f.eks. en JSON-fil) har flere fordele i be
 
 Projektet indeholder unit tests designet med **Given-When-Then** metoden for at sikre, at alle krav er opfyldt.
 
-### Sådan kører du testene:
-
-Åbn din terminal i projektmappen og kør:
-
-```bash
-python -m unittest discover tests
-```
 
 ### Test Design og Risici
 
@@ -48,28 +41,8 @@ Hver test i `tests/test_flat_file_db.py` indeholder kommentarer, der beskriver:
 -   **When:** Den handling, der udføres.
 -   **Then:** Det forventede resultat.
 
-### Screenshot af Unit Tests
 
-*(Indsæt dit screenshot herunder, der viser at alle tests går igennem - "OK")*
 
-```text
-......
-----------------------------------------------------------------------
-Ran 6 tests in 0.009s
-
-OK
-```
-
-## Projektstruktur
-
-*   `src/flat_file_db.py`: Selve database-klassen og logikken.
-*   `tests/test_flat_file_db.py`: Test-filen med alle unit tests.
-*   `README.md`: Denne fil.
-
----
----
-
-# Tidligere Opgaver (Fra Remote)
 
 OPGAVER 03-02-2025
 
