@@ -17,6 +17,21 @@ Ran 8 tests in 0.029s
 
 OK
 
+Screenshot af testresultat
+
+PS C:\Users\Mathias\Documents\ITSECWorspace\IT_sikkerhed_1_2> python -m unittest discover tests -v
+test_add_duplicate_user (test_flat_file_db.TestFlatFileDB.test_add_duplicate_user) ... ok
+test_add_user (test_flat_file_db.TestFlatFileDB.test_add_user) ... ok
+test_delete_user (test_flat_file_db.TestFlatFileDB.test_delete_user) ... ok
+test_get_nonexistent_user (test_flat_file_db.TestFlatFileDB.test_get_nonexistent_user) ... ok
+test_missing_fields (test_flat_file_db.TestFlatFileDB.test_missing_fields) ... ok
+test_update_user (test_flat_file_db.TestFlatFileDB.test_update_user) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.009s
+
+OK
+
 Dette projekt implementerer en simpel brugerdatabase, der gemmer data i en JSON-fil (flat file database). Systemet er skrevet i Python og inkluderer omfattende unit tests.
 
 ## Hvorfor er det smart at bruge en flat_file_db?
@@ -34,6 +49,14 @@ At bruge en "flat file database" (som f.eks. en JSON-fil) har flere fordele i be
 
 Projektet indeholder unit tests designet med **Given-When-Then** metoden for at sikre, at alle krav er opfyldt.
 
+### Sådan kører du testene:
+
+Åbn din terminal i projektmappen og kør:
+
+```bash
+python -m unittest discover tests
+```
+
 ### Test Design og Risici
 
 Hver test i `tests/test_flat_file_db.py` indeholder kommentarer, der beskriver:
@@ -42,33 +65,28 @@ Hver test i `tests/test_flat_file_db.py` indeholder kommentarer, der beskriver:
 -   **When:** Den handling, der udføres.
 -   **Then:** Det forventede resultat.
 
-## Kryptering og Hashing (Ny Opgave)
+### Screenshot af Unit Tests
 
-For at overholde GDPR og sikre brugernes data, er der implementeret følgende sikkerhedsforanstaltninger:
+*(Indsæt dit screenshot herunder, der viser at alle tests går igennem - "OK")*
 
-### Valg af Algoritmer
+```text
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.009s
 
-*   **Hashing:** Jeg har valgt **SHA-256** (med salt) til passwords.
-    *   *Hvorfor:* SHA-256 er en sikker industristandard. Alternativer som MD5 er usikre.
-*   **Kryptering:** Jeg har valgt **Fernet (Symmetrisk AES-128)** til personfølsomme data (PII).
-    *   *Hvorfor:* Det sikrer fortrolighed, og nøglen opbevares separat (`secret.key`).
+OK
+```
 
-### Databehandling og Sikkerhed
+## Projektstruktur
 
-1.  **Hvornår skal data krypteres?**
-    *   Data (Navn, Adresse, Email, Tlf) krypteres **øjeblikkeligt** ved oprettelse (`add_user`) eller opdatering. Data ligger *altid* krypteret i `flat_file_db.json`.
-    *   *Hvorfor:* For at beskytte data "at rest" (når det er gemt), så en lækket fil ikke afslører persondata.
-
-2.  **Hvornår skal data dekrypteres?**
-    *   Data dekrypteres **kun**, når systemet specifikt anmoder om en bruger (`get_user`).
-    *   *Hvorfor:* For at applikationen kan arbejde med dataene (f.eks. vise profil).
-
-3.  **Hvornår skal de fjernes fra hukommelsen?**
-    *   De dekrypterede data findes kun midlertidigt i retur-variablen fra `get_user`. Selve databasen i hukommelsen (`self.users`) beholder dataene **krypteret**. Python rydder automatisk de dekrypterede data op, når de ikke bruges mere.
-    *   *Hvorfor:* For at minimere risikoen ved Memory Dumps (hvis en hacker læser RAM).
+*   `src/flat_file_db.py`: Selve database-klassen og logikken.
+*   `tests/test_flat_file_db.py`: Test-filen med alle unit tests.
+*   `README.md`: Denne fil.
 
 ---
 ---
+
+# Tidligere Opgaver (Fra Remote)
 
 OPGAVER 03-02-2025
 
