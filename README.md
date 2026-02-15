@@ -1,3 +1,61 @@
+# Opgave: Flat File DB system
+
+Dette projekt implementerer en simpel brugerdatabase, der gemmer data i en JSON-fil (flat file database). Systemet er skrevet i Python og inkluderer omfattende unit tests.
+
+## Hvorfor er det smart at bruge en flat_file_db?
+
+At bruge en "flat file database" (som f.eks. en JSON-fil) har flere fordele i bestemte situationer:
+
+1.  **Simpelhed:** Det er utroligt nemt at sætte op og kræver ingen separat database-server (som MySQL eller PostgreSQL).
+2.  **Portabilitet:** Hele databasen er blot en fil, som nemt kan flyttes, kopieres eller sendes sammen med koden.
+3.  **Læsbarhed:** Data gemmes ofte i tekstformat (som JSON eller CSV), hvilket gør det nemt for mennesker at læse og debugge direkte i filen.
+4.  **Lav overhead:** Det kræver meget få ressourcer at køre, hvilket er ideelt til små applikationer, prototyper eller konfigurationsfiler.
+
+*Bemærk: Til store systemer med mange samtidige brugere eller enorme datamængder vil en rigtig SQL-database være bedre, men til mindre opgaver er en flat file løsning ofte perfekt.*
+
+## Unit Tests
+
+Projektet indeholder unit tests designet med **Given-When-Then** metoden for at sikre, at alle krav er opfyldt.
+
+### Sådan kører du testene:
+
+Åbn din terminal i projektmappen og kør:
+
+```bash
+python -m unittest discover tests
+```
+
+### Test Design og Risici
+
+Hver test i `tests/test_flat_file_db.py` indeholder kommentarer, der beskriver:
+-   **Risiko:** Hvad er risikoen, hvis denne funktion fejler? (F.eks. tab af data eller sikkerhedsbrist).
+-   **Given:** Starttilstanden før testen.
+-   **When:** Den handling, der udføres.
+-   **Then:** Det forventede resultat.
+
+### Screenshot af Unit Tests
+
+*(Indsæt dit screenshot herunder, der viser at alle tests går igennem - "OK")*
+
+```text
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.009s
+
+OK
+```
+
+## Projektstruktur
+
+*   `src/flat_file_db.py`: Selve database-klassen og logikken.
+*   `tests/test_flat_file_db.py`: Test-filen med alle unit tests.
+*   `README.md`: Denne fil.
+
+---
+---
+
+# Tidligere Opgaver (Fra Remote)
+
 OPGAVER 03-02-2025
 
 Dette er et skole projekt på Zealand Næstved
@@ -94,8 +152,3 @@ R3        JA               JA             Adgang givet - logget ind
 
 
 Data dreven unit-test med PyTest
-
-
-
-
-
