@@ -1,23 +1,7 @@
 # Opgave: Flat File DB system
 
-Screenshot af testresultat
 
-PS C:\Users\Mathias\Documents\ITSECWorspace\IT_sikkerhed_1_2> python -m unittest discover tests -v
-test_add_duplicate_user (test_flat_file_db.TestFlatFileDB.test_add_duplicate_user) ... ok
-test_add_user (test_flat_file_db.TestFlatFileDB.test_add_user) ... ok
-test_delete_user (test_flat_file_db.TestFlatFileDB.test_delete_user) ... ok
-test_get_nonexistent_user (test_flat_file_db.TestFlatFileDB.test_get_nonexistent_user) ... ok
-test_missing_fields (test_flat_file_db.TestFlatFileDB.test_missing_fields) ... ok
-test_update_user (test_flat_file_db.TestFlatFileDB.test_update_user) ... ok
-test_encryption_at_rest (test_flat_file_db.TestFlatFileDB.test_encryption_at_rest) ... ok
-test_password_hashing (test_flat_file_db.TestFlatFileDB.test_password_hashing) ... ok
-
-----------------------------------------------------------------------
-Ran 8 tests in 0.029s
-
-OK
-
-Screenshot af testresultat
+ testresultat
 
 PS C:\Users\Mathias\Documents\ITSECWorspace\IT_sikkerhed_1_2> python -m unittest discover tests -v
 test_add_duplicate_user (test_flat_file_db.TestFlatFileDB.test_add_duplicate_user) ... ok
@@ -27,7 +11,7 @@ test_get_nonexistent_user (test_flat_file_db.TestFlatFileDB.test_get_nonexistent
 test_missing_fields (test_flat_file_db.TestFlatFileDB.test_missing_fields) ... ok
 test_update_user (test_flat_file_db.TestFlatFileDB.test_update_user) ... ok
 
-----------------------------------------------------------------------
+
 Ran 6 tests in 0.009s
 
 OK
@@ -49,13 +33,6 @@ At bruge en "flat file database" (som f.eks. en JSON-fil) har flere fordele i be
 
 Projektet indeholder unit tests designet med **Given-When-Then** metoden for at sikre, at alle krav er opfyldt.
 
-### Sådan kører du testene:
-
-Åbn din terminal i projektmappen og kør:
-
-```bash
-python -m unittest discover tests
-```
 
 ### Test Design og Risici
 
@@ -65,23 +42,6 @@ Hver test i `tests/test_flat_file_db.py` indeholder kommentarer, der beskriver:
 -   **When:** Den handling, der udføres.
 -   **Then:** Det forventede resultat.
 
-### Screenshot af Unit Tests
-
-*(Indsæt dit screenshot herunder, der viser at alle tests går igennem - "OK")*
-
-```text
-......
-----------------------------------------------------------------------
-Ran 6 tests in 0.009s
-
-OK
-```
-
-## Projektstruktur
-
-*   `src/flat_file_db.py`: Selve database-klassen og logikken.
-*   `tests/test_flat_file_db.py`: Test-filen med alle unit tests.
-*   `README.md`: Denne fil.
 
 ## Kryptering og Hashing (Ny Opgave)
 
