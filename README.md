@@ -1,8 +1,8 @@
 # Opgave: Flat File DB system
 
-Screenshot af testresultat (v. 2.0 med kryptering og hashing)
+ testresultat  med kryptering og hashing
 
-```text
+
 test_add_duplicate_user (test_flat_file_db.TestFlatFileDB.test_add_duplicate_user) ... ok
 test_add_user (test_flat_file_db.TestFlatFileDB.test_add_user) ... ok
 test_delete_user (test_flat_file_db.TestFlatFileDB.test_delete_user) ... ok
@@ -12,12 +12,11 @@ test_missing_fields (test_flat_file_db.TestFlatFileDB.test_missing_fields) ... o
 test_password_hashing (test_flat_file_db.TestFlatFileDB.test_password_hashing) ... ok
 test_update_user (test_flat_file_db.TestFlatFileDB.test_update_user) ... ok
 
-----------------------------------------------------------------------
+
 Ran 8 tests in 0.029s
 
 OK
 ```
-
 Dette projekt implementerer en simpel brugerdatabase, der gemmer data i en JSON-fil (flat file database). Systemet er skrevet i Python og inkluderer omfattende unit tests.
 
 ## Hvorfor er det smart at bruge en flat_file_db?
