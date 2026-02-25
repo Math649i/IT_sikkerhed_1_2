@@ -50,3 +50,14 @@ Thumbs.db
 
 # keep
 !.vscode/tasks.json
+
+# Secrets (prod) - må IKKE committes
+.env
+secret.key
+
+# Database filer
+*.json
+!package.json
+
+# Test secrets (.env.test) MÅ gerne committes
+!.env.test

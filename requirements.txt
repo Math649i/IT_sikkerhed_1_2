@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+cryptography
+python-jose[cryptography]
+python-dotenv
+python-multipart

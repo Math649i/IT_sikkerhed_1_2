@@ -1,3 +1,67 @@
+# Opgave 2 – AUTH
+
+Authorization REST API med **JWT security tokens** bygget med Python + FastAPI.
+
+### Kør Auth API'et
+
+```bash
+pip install -r requirements.txt
+cd src
+python -m uvicorn auth:app --reload
+```
+
+Åbn Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+### Endpoints
+
+| Method | Path | Beskrivelse |
+|--------|------|-------------|
+| `POST` | `/auth/token` | Login → få JWT security token |
+| `POST` | `/auth/register` | Registrer ny account |
+| `PUT` | `/auth/change-password` | Skift password (kræver token) |
+| `PUT` | `/auth/deactivate` | Deaktiver egen account (kræver token) |
+| `PUT` | `/auth/reactivate/{person_id}` | Reaktiver account (kun admin) |
+| `GET` | `/auth/me` | Se egen profil (kræver token) |
+
+### Funktionalitet
+
+- **Admin-bruger** oprettes automatisk ved første start hvis `user_db.json` er tom
+- **JWT tokens** med udløbstid (30 min), signeret med secret key
+- **Test-secrets** ligger i `.env.test` (committet til git)
+- **Prod-secrets** skal ligge i environment variables (`.env` er gitignored)
+
+---
+---
+
+# Opgave 1 – REST API
+
+REST API bygget med **Python + FastAPI**. Bruger `flat_file_db.py` til at gemme data.
+
+### Kør API'et
+
+```bash
+pip install -r requirements.txt
+cd src
+python -m uvicorn main:app --reload
+```
+
+Åbn Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+### Endpoints
+
+| Method | Path | Beskrivelse |
+|--------|------|-------------|
+| `POST` | `/users` | **Create** – Opret ny bruger |
+| `GET` | `/users` | **List** – Hent oversigt over alle brugere |
+| `GET` | `/users/{person_id}` | **Read** – Hent en enkelt bruger |
+| `PUT` | `/users/{person_id}` | **Update** – Opdater en bruger |
+| `DELETE` | `/users/{person_id}` | **Delete** – Slet en bruger |
+
+Data gemmes krypteret i `flat_file_db.json` og passwords hashes med SHA-256. API'et returnerer dekrypterede data (uden password) i responses.
+
+---
+---
+
 # Opgave: Flat File DB system
 
 Screenshot af testresultat (v. 2.0 med kryptering og hashing)
