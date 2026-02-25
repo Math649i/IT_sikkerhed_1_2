@@ -57,14 +57,12 @@ python -m uvicorn main:app --reload
 | `PUT` | `/users/{person_id}` | **Update** – Opdater en bruger |
 | `DELETE` | `/users/{person_id}` | **Delete** – Slet en bruger |
 
-Data gemmes krypteret i `flat_file_db.json` og passwords hashes med SHA-256. API'et returnerer dekrypterede data (uden password) i responses.
-
 ---
 ---
 
-# Opgave: Flat File DB system
+# Opgave: Flat File DB system, kryptering og hashing
 
-Screenshot af testresultat (v. 2.0 med kryptering og hashing)
+Testresultat med kryptering og hashing
 
 ```text
 test_add_duplicate_user (test_flat_file_db.TestFlatFileDB.test_add_duplicate_user) ... ok
